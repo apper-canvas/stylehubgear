@@ -1,10 +1,10 @@
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import ApperIcon from './components/ApperIcon';
-import CartSidebar from './components/CartSidebar';
-import SearchOverlay from './components/SearchOverlay';
-import { cartService } from './services';
+import ApperIcon from '@/components/ApperIcon';
+import CartSidebar from '@/components/organisms/CartSidebar';
+import SearchOverlay from '@/components/organisms/SearchOverlay';
+import { cartService } from '@/services';
 
 const Layout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
