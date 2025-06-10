@@ -118,23 +118,8 @@ const CategoryProductListing = () => {
     );
   }
 
-  return (
+return (
     <div className="min-h-screen bg-background">
-      <div className="bg-white border-b border-gray-200">
-        <div className="container mx-auto px-4 py-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center"
-          >
-            <Heading as="h1" className="text-display-md mb-4 font-display">{categoryName}</Heading>
-            <Paragraph className="text-gray-600">
-              {filteredProducts.length} {filteredProducts.length === 1 ? 'item' : 'items'}
-            </Paragraph>
-          </motion.div>
-        </div>
-      </div>
-
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="hidden lg:block lg:w-1/4">
@@ -165,8 +150,11 @@ const CategoryProductListing = () => {
               </Select>
             </div>
 
-            <div className="hidden lg:flex items-center justify-between mb-6">
+<div className="hidden lg:flex items-center justify-between mb-6">
               <div className="flex items-center space-x-4">
+                <span className="text-sm text-gray-600">
+                  {filteredProducts.length} {filteredProducts.length === 1 ? 'item' : 'items'}
+                </span>
                 <Select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
