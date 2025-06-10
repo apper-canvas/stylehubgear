@@ -10,15 +10,21 @@ const HomePage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+useEffect(() => {
     const loadFeaturedProducts = async () => {
       setLoading(true);
       setError(null);
       try {
         const products = await productService.getAll();
-        setFeaturedProducts(products.filter(p => p.featured).slice(0, 8));
+        // Handle empty or null products
+        if (!products || products.length === 0) {
+          setFeaturedProducts([]);
+        } else {
+          setFeaturedProducts(products.filter(p => p?.featured).slice(0, 8));
+        }
       } catch (err) {
         setError(err.message || 'Failed to load products');
+        setFeaturedProducts([]);
       } finally {
         setLoading(false);
       }

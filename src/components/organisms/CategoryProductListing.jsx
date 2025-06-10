@@ -29,19 +29,28 @@ const CategoryProductListing = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [viewMode, setViewMode] = useState('grid'); // Default view mode
 
-  useEffect(() => {
+useEffect(() => {
     const loadProducts = async () => {
       setLoading(true);
       setError(null);
       try {
         const allProducts = await productService.getAll();
-        const categoryProducts = categorySlug === 'all' 
-          ? allProducts
-          : allProducts.filter(p => p.category.toLowerCase() === categorySlug.toLowerCase());
-        setProducts(categoryProducts);
-        setFilteredProducts(categoryProducts);
+        // Handle empty or null products
+        if (!allProducts || allProducts.length === 0) {
+          setProducts([]);
+          setFilteredProducts([]);
+        } else {
+          const categoryProducts = categorySlug === 'all' 
+            ? allProducts
+            : allProducts.filter(p => p?.category?.toLowerCase() === categorySlug.toLowerCase());
+          setProducts(categoryProducts);
+          setFilteredProducts(categoryProducts);
+        }
       } catch (err) {
+        console.error('Error loading products:', err);
         setError(err.message || 'Failed to load products');
+        setProducts([]);
+        setFilteredProducts([]);
       } finally {
         setLoading(false);
       }

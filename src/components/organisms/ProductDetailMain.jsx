@@ -39,7 +39,7 @@ const ProductDetailMain = ({ product }) => {
   };
 
   const displayImages = getDisplayImages();
-  const handleAddToCart = async () => {
+const handleAddToCart = async () => {
     if (product.sizes?.length > 0 && !selectedSize) {
       toast.error('Please select a size');
       return;
@@ -55,9 +55,12 @@ const ProductDetailMain = ({ product }) => {
         price: product.price
       };
 
-      await cartService.create(cartItem);
-      toast.success('Added to cart!');
+      const result = await cartService.create(cartItem);
+      if (result) {
+        // Success notification is handled by the service
+      }
     } catch (err) {
+      console.error('Error adding to cart:', err);
       toast.error('Failed to add to cart');
     } finally {
       setAddingToCart(false);

@@ -17,24 +17,37 @@ const CartOverview = () => {
   const [loading, setLoading] = useState(false);
   const [updating, setUpdating] = useState({});
 
-  useEffect(() => {
+useEffect(() => {
     const loadCart = async () => {
       setLoading(true);
       try {
         const items = await cartService.getAll();
-        setCartItems(items);
+        // Handle empty or null cart items
+        if (!items || items.length === 0) {
+          setCartItems([]);
+          setProducts({});
+        } else {
+          setCartItems(items);
 
-        const productIds = [...new Set(items.map(item => item.productId))];
-        const productPromises = productIds.map(id => productService.getById(id));
-        const productResults = await Promise.all(productPromises);
-        
-        const productsMap = {};
-        productResults.forEach(product => {
-          if (product) productsMap[product.id] = product;
-        });
-        setProducts(productsMap);
+          const productIds = [...new Set(items.map(item => item.productId).filter(Boolean))];
+          if (productIds.length > 0) {
+            const productPromises = productIds.map(id => productService.getById(id));
+            const productResults = await Promise.all(productPromises);
+            
+            const productsMap = {};
+            productResults.forEach(product => {
+              if (product) productsMap[product.id] = product;
+            });
+            setProducts(productsMap);
+          } else {
+            setProducts({});
+          }
+        }
       } catch (error) {
+        console.error('Error loading cart:', error);
         toast.error('Failed to load cart');
+        setCartItems([]);
+        setProducts({});
       } finally {
         setLoading(false);
       }
@@ -42,16 +55,19 @@ const CartOverview = () => {
     loadCart();
   }, []);
 
-  const updateQuantity = async (itemId, newQuantity) => {
+const updateQuantity = async (itemId, newQuantity) => {
     if (newQuantity < 1) return;
     
     setUpdating(prev => ({ ...prev, [itemId]: true }));
     try {
       const updatedItem = await cartService.update(itemId, { quantity: newQuantity });
-      setCartItems(items => 
-        items.map(item => item.id === itemId ? updatedItem : item)
-      );
+      if (updatedItem) {
+        setCartItems(items => 
+          items.map(item => item.id === itemId ? updatedItem : item)
+        );
+      }
     } catch (error) {
+      console.error('Error updating quantity:', error);
       toast.error('Failed to update quantity');
     } finally {
       setUpdating(prev => ({ ...prev, [itemId]: false }));
@@ -60,10 +76,12 @@ const CartOverview = () => {
 
   const removeItem = async (itemId) => {
     try {
-      await cartService.delete(itemId);
-      setCartItems(items => items.filter(item => item.id !== itemId));
-      toast.success('Item removed from cart');
+      const success = await cartService.delete(itemId);
+      if (success) {
+        setCartItems(items => items.filter(item => item.id !== itemId));
+      }
     } catch (error) {
+      console.error('Error removing item:', error);
       toast.error('Failed to remove item');
     }
   };
