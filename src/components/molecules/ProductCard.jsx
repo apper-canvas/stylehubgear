@@ -2,8 +2,12 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
-import { cartService } from '../services';
-import ApperIcon from './ApperIcon';
+import { cartService } from '@/services';
+import ApperIcon from '@/components/ApperIcon';
+import Button from '@/components/atoms/Button';
+import Image from '@/components/atoms/Image';
+import Heading from '@/components/atoms/Heading';
+import Paragraph from '@/components/atoms/Paragraph';
 
 const ProductCard = ({ product, viewMode = 'grid' }) => {
   const [addingToCart, setAddingToCart] = useState(false);
@@ -42,22 +46,22 @@ const ProductCard = ({ product, viewMode = 'grid' }) => {
       >
         <NavLink to={`/product/${product.id}`} className="flex p-4 hover:bg-gray-50 transition-colors">
           <div className="w-24 h-24 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-            <img
+            <Image
               src={product.images[0]}
               alt={product.name}
               className="w-full h-full object-cover"
             />
           </div>
           <div className="ml-4 flex-1 min-w-0">
-            <h3 className="font-semibold text-primary break-words">{product.name}</h3>
-            <p className="text-gray-500 text-sm mt-1 line-clamp-2">{product.description}</p>
+            <Heading as="h3" className="font-semibold text-primary break-words">{product.name}</Heading>
+            <Paragraph className="text-gray-500 text-sm mt-1 line-clamp-2">{product.description}</Paragraph>
             <div className="flex items-center justify-between mt-3">
-              <p className="font-semibold text-accent">${product.price}</p>
+              <Paragraph className="font-semibold text-accent">${product.price}</Paragraph>
               <div className="flex items-center space-x-2">
                 {product.sizes && product.sizes.length > 0 && (
-                  <span className="text-xs text-gray-500">
+                  <Paragraph className="text-xs text-gray-500">
                     Sizes: {product.sizes.join(', ')}
-                  </span>
+                  </Paragraph>
                 )}
               </div>
             </div>
@@ -76,13 +80,12 @@ const ProductCard = ({ product, viewMode = 'grid' }) => {
     >
       <NavLink to={`/product/${product.id}`} className="block">
         <div className="relative aspect-[4/5] bg-gray-100 overflow-hidden">
-          <img
+          <Image
             src={product.images[0]}
             alt={product.name}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
           
-          {/* Quick Add Button */}
           <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ 
@@ -110,15 +113,13 @@ const ProductCard = ({ product, viewMode = 'grid' }) => {
             )}
           </motion.button>
 
-          {/* Sale Badge */}
           {product.featured && (
             <div className="absolute top-3 left-3 bg-accent text-white text-xs font-semibold px-2 py-1 rounded">
               Featured
             </div>
           )}
 
-          {/* Wishlist Button */}
-          <button
+          <Button
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -127,18 +128,17 @@ const ProductCard = ({ product, viewMode = 'grid' }) => {
             className="absolute top-3 right-3 w-8 h-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-colors"
           >
             <ApperIcon name="Heart" size={16} className="text-gray-600 hover:text-accent transition-colors" />
-          </button>
+          </Button>
         </div>
 
         <div className="p-4">
-          <h3 className="font-semibold text-primary break-words line-clamp-2 mb-2">
+          <Heading as="h3" className="font-semibold text-primary break-words line-clamp-2 mb-2">
             {product.name}
-          </h3>
+          </Heading>
           
           <div className="flex items-center justify-between">
-            <p className="font-semibold text-accent">${product.price}</p>
+            <Paragraph className="font-semibold text-accent">${product.price}</Paragraph>
             
-            {/* Color Options */}
             {product.colors && product.colors.length > 0 && (
               <div className="flex space-x-1">
                 {product.colors.slice(0, 3).map((color, index) => (
@@ -165,12 +165,11 @@ const ProductCard = ({ product, viewMode = 'grid' }) => {
             )}
           </div>
 
-          {/* Sizes */}
           {product.sizes && product.sizes.length > 0 && (
             <div className="mt-2">
-              <p className="text-xs text-gray-500">
+              <Paragraph className="text-xs text-gray-500">
                 Sizes: {product.sizes.join(', ')}
-              </p>
+              </Paragraph>
             </div>
           )}
         </div>

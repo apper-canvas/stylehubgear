@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { productService } from '../services';
-import ProductCard from '../components/ProductCard';
-import FilterSidebar from '../components/FilterSidebar';
-import SkeletonLoader from '../components/SkeletonLoader';
-import ErrorState from '../components/ErrorState';
-import EmptyState from '../components/EmptyState';
-import ApperIcon from '../components/ApperIcon';
+import { productService } from '@/services';
+import ProductCard from '@/components/molecules/ProductCard';
+import FilterSidebar from '@/components/organisms/FilterSidebar';
+import SkeletonLoader from '@/components/organisms/SkeletonLoader';
+import ErrorState from '@/components/organisms/ErrorState';
+import EmptyState from '@/components/organisms/EmptyState';
+import ApperIcon from '@/components/ApperIcon';
+import Select from '@/components/atoms/Select';
+import Button from '@/components/atoms/Button';
+import Heading from '@/components/atoms/Heading';
+import Paragraph from '@/components/atoms/Paragraph';
+import ViewModeToggle from '@/components/molecules/ViewModeToggle';
 
-const Category = () => {
+const CategoryProductListing = () => {
   const { categorySlug } = useParams();
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -22,7 +27,7 @@ const Category = () => {
   });
   const [sortBy, setSortBy] = useState('name');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [viewMode, setViewMode] = useState('grid');
+  const [viewMode, setViewMode] = useState('grid'); // Default view mode
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -115,7 +120,6 @@ const Category = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Category Header */}
       <div className="bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 py-8">
           <motion.div
@@ -123,17 +127,16 @@ const Category = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center"
           >
-            <h1 className="font-display text-display-md mb-4">{categoryName}</h1>
-            <p className="text-gray-600">
+            <Heading as="h1" className="text-display-md mb-4 font-display">{categoryName}</Heading>
+            <Paragraph className="text-gray-600">
               {filteredProducts.length} {filteredProducts.length === 1 ? 'item' : 'items'}
-            </p>
+            </Paragraph>
           </motion.div>
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Desktop Filter Sidebar */}
           <div className="hidden lg:block lg:w-1/4">
             <FilterSidebar
               filters={filters}
@@ -142,18 +145,16 @@ const Category = () => {
             />
           </div>
 
-          {/* Main Content */}
           <div className="lg:w-3/4">
-            {/* Mobile Filter & Sort Bar */}
             <div className="flex items-center justify-between mb-6 lg:hidden">
-              <button
+              <Button
                 onClick={() => setIsFilterOpen(true)}
                 className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg"
               >
                 <ApperIcon name="Filter" size={16} />
                 <span>Filters</span>
-              </button>
-              <select
+              </Button>
+              <Select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 className="px-4 py-2 border border-gray-300 rounded-lg"
@@ -161,13 +162,12 @@ const Category = () => {
                 <option value="name">Sort by Name</option>
                 <option value="price-low">Price: Low to High</option>
                 <option value="price-high">Price: High to Low</option>
-              </select>
+              </Select>
             </div>
 
-            {/* Desktop Sort & View Controls */}
             <div className="hidden lg:flex items-center justify-between mb-6">
               <div className="flex items-center space-x-4">
-                <select
+                <Select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
                   className="px-4 py-2 border border-gray-300 rounded-lg"
@@ -175,29 +175,11 @@ const Category = () => {
                   <option value="name">Sort by Name</option>
                   <option value="price-low">Price: Low to High</option>
                   <option value="price-high">Price: High to Low</option>
-                </select>
+                </Select>
               </div>
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={() => setViewMode('grid')}
-                  className={`p-2 border rounded ${
-                    viewMode === 'grid' ? 'bg-primary text-white' : 'border-gray-300'
-                  }`}
-                >
-                  <ApperIcon name="Grid3X3" size={16} />
-                </button>
-                <button
-                  onClick={() => setViewMode('list')}
-                  className={`p-2 border rounded ${
-                    viewMode === 'list' ? 'bg-primary text-white' : 'border-gray-300'
-                  }`}
-                >
-                  <ApperIcon name="List" size={16} />
-                </button>
-              </div>
+              <ViewModeToggle viewMode={viewMode} onToggle={setViewMode} />
             </div>
 
-            {/* Products Grid */}
             {filteredProducts.length === 0 ? (
               <EmptyState
                 title="No products found"
@@ -223,20 +205,19 @@ const Category = () => {
         </div>
       </div>
 
-      {/* Mobile Filter Overlay */}
       {isFilterOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div className="absolute inset-0 bg-black/50" onClick={() => setIsFilterOpen(false)}></div>
           <div className="absolute right-0 top-0 h-full w-80 bg-white overflow-y-auto">
             <div className="p-4 border-b border-gray-200">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold">Filters</h3>
-                <button
+                <Heading as="h3" className="text-lg font-semibold">Filters</Heading>
+                <Button
                   onClick={() => setIsFilterOpen(false)}
                   className="p-2 text-gray-400 hover:text-gray-600"
                 >
                   <ApperIcon name="X" size={20} />
-                </button>
+                </Button>
               </div>
             </div>
             <div className="p-4">
@@ -254,4 +235,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default CategoryProductListing;

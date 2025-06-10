@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 
 const SkeletonLoader = ({ count = 8 }) => {
@@ -18,7 +19,7 @@ const SkeletonLoader = ({ count = 8 }) => {
             <div className="flex justify-between items-center">
               <div className="h-6 bg-gray-200 animate-pulse rounded w-16"></div>
               <div className="flex space-x-1">
-                {[...Array(3)].map((_, i) => (
+                {[...Array(3)].map((__, i) => (
                   <div key={i} className="w-4 h-4 bg-gray-200 animate-pulse rounded-full"></div>
                 ))}
               </div>

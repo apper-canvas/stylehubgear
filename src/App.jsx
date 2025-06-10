@@ -3,12 +3,12 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Layout from './Layout';
-import Home from './pages/Home';
-import Category from './pages/Category';
-import ProductDetail from './pages/ProductDetail';
-import Cart from './pages/Cart';
-import Checkout from './pages/Checkout';
-import NotFound from './pages/NotFound';
+import HomePage from '@/components/pages/HomePage';
+import CategoryPage from '@/components/pages/CategoryPage';
+import ProductDetailPage from '@/components/pages/ProductDetailPage';
+import CartPage from '@/components/pages/CartPage';
+import CheckoutPage from '@/components/pages/CheckoutPage';
+import NotFoundPage from '@/components/pages/NotFoundPage';
 
 function App() {
   return (
@@ -17,12 +17,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Navigate to="/home" replace />} />
-            <Route path="home" element={<Home />} />
-            <Route path="category/:categorySlug" element={<Category />} />
-            <Route path="product/:productId" element={<ProductDetail />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="checkout" element={<Checkout />} />
-            <Route path="*" element={<NotFound />} />
+<Route path="home" element={<HomePage />} />
+            <Route path="category/:categorySlug" element={<CategoryPage />} />
+            <Route path="product/:productId" element={<ProductDetailPage />} />
+            <Route path="cart" element={<CartPage />} />
+            <Route path="checkout" element={<CheckoutPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
         

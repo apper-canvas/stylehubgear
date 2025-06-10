@@ -1,5 +1,9 @@
+import React from 'react';
 import { motion } from 'framer-motion';
-import ApperIcon from './ApperIcon';
+import ApperIcon from '@/components/ApperIcon';
+import Heading from '@/components/atoms/Heading';
+import Paragraph from '@/components/atoms/Paragraph';
+import Button from '@/components/atoms/Button';
 
 const ErrorState = ({ message, onRetry }) => {
   return (
@@ -17,18 +21,21 @@ const ErrorState = ({ message, onRetry }) => {
           <ApperIcon name="AlertTriangle" size={64} className="text-error mx-auto mb-4" />
         </motion.div>
         
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">Oops! Something went wrong</h3>
-        <p className="text-gray-500 mb-6">{message}</p>
+        <Heading as="h3" className="text-xl font-semibold text-gray-900 mb-2">Oops! Something went wrong</Heading>
+        <Paragraph className="text-gray-500 mb-6">{message}</Paragraph>
         
         {onRetry && (
-          <motion.button
+          <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={onRetry}
-            className="bg-accent text-white px-6 py-3 rounded-lg font-semibold hover:bg-accent/90 transition-colors"
           >
-            Try Again
-          </motion.button>
+            <Button
+              onClick={onRetry}
+              className="bg-accent text-white px-6 py-3 rounded-lg font-semibold hover:bg-accent/90 transition-colors"
+            >
+              Try Again
+            </Button>
+          </motion.div>
         )}
       </div>
     </motion.div>

@@ -1,9 +1,13 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
-import ApperIcon from './ApperIcon';
+import ApperIcon from '@/components/ApperIcon';
+import Heading from '@/components/atoms/Heading';
+import Paragraph from '@/components/atoms/Paragraph';
+import Button from '@/components/atoms/Button';
 
 const EmptyState = ({ title, description, actionLabel, onAction, actionLink }) => {
-  const ActionComponent = actionLink ? NavLink : 'button';
+  const ActionComponent = actionLink ? NavLink : Button;
   const actionProps = actionLink ? { to: actionLink } : { onClick: onAction };
 
   return (
@@ -19,8 +23,8 @@ const EmptyState = ({ title, description, actionLabel, onAction, actionLink }) =
         <ApperIcon name="Package" size={64} className="text-gray-300 mx-auto mb-6" />
       </motion.div>
       
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
-      <p className="text-gray-500 mb-8 max-w-md mx-auto">{description}</p>
+      <Heading as="h3" className="text-xl font-semibold text-gray-900 mb-2">{title}</Heading>
+      <Paragraph className="text-gray-500 mb-8 max-w-md mx-auto">{description}</Paragraph>
       
       {(onAction || actionLink) && actionLabel && (
         <motion.div

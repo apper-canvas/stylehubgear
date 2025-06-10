@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import ApperIcon from './ApperIcon';
+import ApperIcon from '@/components/ApperIcon';
+import Button from '@/components/atoms/Button';
+import Checkbox from '@/components/atoms/Checkbox';
+import Heading from '@/components/atoms/Heading';
+import Input from '@/components/atoms/Input';
+import Label from '@/components/atoms/Label';
+import Paragraph from '@/components/atoms/Paragraph';
 
 const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
   const [openSections, setOpenSections] = useState({
@@ -17,7 +23,6 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
     }));
   };
 
-  // Extract unique values from products
   const categories = [...new Set(products.map(p => p.category))].sort();
   const sizes = [...new Set(products.flatMap(p => p.sizes || []))].sort();
   const colors = [...new Set(products.flatMap(p => p.colors || []))].sort();
@@ -84,29 +89,28 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold">Filters</h3>
+        <Heading as="h3" className="text-lg font-semibold">Filters</Heading>
         {hasActiveFilters && (
-          <button
+          <Button
             onClick={clearAllFilters}
             className="text-accent hover:underline text-sm"
           >
             Clear All
-          </button>
+          </Button>
         )}
         {onClose && (
-          <button
+          <Button
             onClick={onClose}
             className="lg:hidden p-1 text-gray-400 hover:text-gray-600"
           >
             <ApperIcon name="X" size={20} />
-          </button>
+          </Button>
         )}
       </div>
 
       <div className="space-y-6">
-        {/* Categories */}
         <div>
-          <button
+          <Button
             onClick={() => toggleSection('categories')}
             className="flex items-center justify-between w-full py-2 font-medium text-left"
           >
@@ -118,7 +122,7 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
                 openSections.categories ? 'rotate-180' : ''
               }`}
             />
-          </button>
+          </Button>
           
           <motion.div
             initial={false}
@@ -131,23 +135,20 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
           >
             <div className="space-y-2 pt-2">
               {categories.map(category => (
-                <label key={category} className="flex items-center space-x-2 cursor-pointer">
-                  <input
-                    type="checkbox"
+                <Label key={category} className="flex items-center space-x-2 cursor-pointer">
+                  <Checkbox
                     checked={filters.categories.includes(category)}
                     onChange={() => handleCategoryChange(category)}
-                    className="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent"
                   />
                   <span className="text-sm capitalize">{category}</span>
-                </label>
+                </Label>
               ))}
             </div>
           </motion.div>
         </div>
 
-        {/* Sizes */}
         <div>
-          <button
+          <Button
             onClick={() => toggleSection('sizes')}
             className="flex items-center justify-between w-full py-2 font-medium text-left"
           >
@@ -159,7 +160,7 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
                 openSections.sizes ? 'rotate-180' : ''
               }`}
             />
-          </button>
+          </Button>
           
           <motion.div
             initial={false}
@@ -172,7 +173,7 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
           >
             <div className="grid grid-cols-3 gap-2 pt-2">
               {sizes.map(size => (
-                <button
+                <Button
                   key={size}
                   onClick={() => handleSizeChange(size)}
                   className={`px-3 py-2 text-sm border rounded transition-colors ${
@@ -182,15 +183,14 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
                   }`}
                 >
                   {size}
-                </button>
+                </Button>
               ))}
             </div>
           </motion.div>
         </div>
 
-        {/* Colors */}
         <div>
-          <button
+          <Button
             onClick={() => toggleSection('colors')}
             className="flex items-center justify-between w-full py-2 font-medium text-left"
           >
@@ -202,7 +202,7 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
                 openSections.colors ? 'rotate-180' : ''
               }`}
             />
-          </button>
+          </Button>
           
           <motion.div
             initial={false}
@@ -215,13 +215,11 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
           >
             <div className="space-y-2 pt-2">
               {colors.map(color => (
-                <label key={color} className="flex items-center space-x-3 cursor-pointer">
+                <Label key={color} className="flex items-center space-x-3 cursor-pointer">
                   <div className="flex items-center">
-                    <input
-                      type="checkbox"
+                    <Checkbox
                       checked={filters.colors.includes(color)}
                       onChange={() => handleColorChange(color)}
-                      className="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent"
                     />
                     <div
                       className={`w-4 h-4 rounded-full border border-gray-300 ml-2 ${
@@ -238,15 +236,14 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
                     />
                   </div>
                   <span className="text-sm capitalize">{color}</span>
-                </label>
+                </Label>
               ))}
             </div>
           </motion.div>
         </div>
 
-        {/* Price Range */}
         <div>
-          <button
+          <Button
             onClick={() => toggleSection('price')}
             className="flex items-center justify-between w-full py-2 font-medium text-left"
           >
@@ -258,7 +255,7 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
                 openSections.price ? 'rotate-180' : ''
               }`}
             />
-          </button>
+          </Button>
           
           <motion.div
             initial={false}
@@ -271,30 +268,30 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
           >
             <div className="space-y-4 pt-2">
               <div className="flex items-center space-x-2">
-                <input
+                <Input
                   type="number"
                   value={filters.priceRange[0]}
                   onChange={(e) => handlePriceChange(e.target.value, 0)}
                   placeholder="Min"
-                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                  className="px-3 py-2 text-sm"
                   min="0"
                   max="500"
                 />
                 <span className="text-gray-500">to</span>
-                <input
+                <Input
                   type="number"
                   value={filters.priceRange[1]}
                   onChange={(e) => handlePriceChange(e.target.value, 1)}
                   placeholder="Max"
-                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                  className="px-3 py-2 text-sm"
                   min="0"
                   max="500"
                 />
               </div>
               
-              <div className="text-center text-sm text-gray-500">
+              <Paragraph className="text-center text-sm text-gray-500">
                 ${filters.priceRange[0]} - ${filters.priceRange[1]}
-              </div>
+              </Paragraph>
             </div>
           </motion.div>
         </div>
