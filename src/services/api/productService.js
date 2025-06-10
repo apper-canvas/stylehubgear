@@ -4,7 +4,51 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 class ProductService {
   constructor() {
-    this.data = [...productsData];
+    // Enhance products with additional details
+    this.data = productsData.map(product => ({
+      ...product,
+      rating: product.rating || (Math.random() * 1.5 + 3.5).toFixed(1),
+      reviewCount: product.reviewCount || Math.floor(Math.random() * 200 + 50),
+      material: product.material || this.getDefaultMaterial(product.category),
+      fit: product.fit || 'Regular Fit',
+      type: product.type || 'Casual',
+      care: product.care || 'Machine Wash Cold',
+      additionalInfo: product.additionalInfo || '• Premium quality materials • Sustainable production • Model measurements vary by size',
+      offers: product.offers || this.getRandomOffers(),
+      colorImages: product.colorImages || this.generateColorImages(product)
+    }));
+  }
+
+  getDefaultMaterial(category) {
+    const materials = {
+      'men': '100% Cotton',
+      'women': 'Cotton Blend',
+      'kids': 'Soft Cotton',
+      'accessories': 'Premium Materials'
+    };
+    return materials[category?.toLowerCase()] || '100% Cotton';
+  }
+
+  getRandomOffers() {
+    const offers = [
+      'Free shipping on orders over $100',
+      'Buy 2 get 1 free on selected items',
+      '15% off your first order',
+      'Extended 60-day returns',
+      'Free gift wrapping available'
+    ];
+    return Math.random() > 0.6 ? [offers[Math.floor(Math.random() * offers.length)]] : [];
+  }
+
+  generateColorImages(product) {
+    if (!product.colors || !product.images) return null;
+    
+    const colorImages = {};
+    product.colors.forEach((color, index) => {
+      // Assign images to colors - in real app, this would be actual color-specific images
+      colorImages[color] = product.images.slice(index % product.images.length);
+    });
+    return colorImages;
   }
 
   async getAll() {

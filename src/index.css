@@ -63,3 +63,71 @@ body {
 .cart-sidebar.open {
   transform: translateX(0);
 }
+
+/* Image zoom styles */
+.image-zoom-container {
+  cursor: zoom-in;
+  position: relative;
+  overflow: hidden;
+}
+
+.image-zoom-container:hover img {
+  transform: scale(1.05);
+}
+
+.image-zoom-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+
+.image-zoom-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+/* Product detail enhancements */
+.product-detail-section {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.product-detail-section:hover {
+  border-color: #d1d5db;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Review stars */
+.star-rating {
+  display: flex;
+  gap: 2px;
+}
+
+.star-filled {
+  color: #fbbf24;
+}
+
+.star-empty {
+  color: #d1d5db;
+}
+
+/* Offer badge */
+.offer-badge {
+  background: linear-gradient(45deg, #ff3366, #ff6b9d);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
