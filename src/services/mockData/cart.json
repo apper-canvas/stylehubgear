@@ -1,0 +1,20 @@
+[
+  {
+    "id": "cart1",
+    "productId": "1",
+    "quantity": 2,
+    "size": "M",
+    "color": "white",
+    "price": 29.99,
+    "addedAt": "2024-01-15T10:30:00Z"
+  },
+  {
+    "id": "cart2",
+    "productId": "2",
+    "quantity": 1,
+    "size": "S",
+    "color": "black",
+    "price": 89.99,
+    "addedAt": "2024-01-15T11:45:00Z"
+  }
+]

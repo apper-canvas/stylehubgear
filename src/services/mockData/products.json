@@ -1,0 +1,162 @@
+[
+  {
+    "id": "1",
+    "name": "Essential Cotton T-Shirt",
+    "price": 29.99,
+    "category": "men",
+    "subcategory": "t-shirts",
+    "images": [
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1583743814966-8936f37f4ec1?w=600&h=800&fit=crop"
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "colors": ["white", "black", "gray", "navy"],
+    "description": "Premium 100% organic cotton t-shirt with a comfortable regular fit. Perfect for everyday wear with its soft texture and breathable fabric.",
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "2",
+    "name": "Elegant Silk Blouse",
+    "price": 89.99,
+    "category": "women",
+    "subcategory": "blouses",
+    "images": [
+      "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600&h=800&fit=crop"
+    ],
+    "sizes": ["XS", "S", "M", "L"],
+    "colors": ["white", "black", "beige", "navy"],
+    "description": "Luxurious silk blouse with a flowing silhouette. Features delicate button details and a versatile design perfect for both office and evening wear.",
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "3",
+    "name": "Classic Denim Jacket",
+    "price": 79.99,
+    "category": "men",
+    "subcategory": "jackets",
+    "images": [
+      "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&h=800&fit=crop"
+    ],
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["blue", "black", "gray"],
+    "description": "Timeless denim jacket crafted from premium cotton denim. Features classic styling with modern fit adjustments for contemporary comfort.",
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "4",
+    "name": "Floral Summer Dress",
+    "price": 69.99,
+    "category": "women",
+    "subcategory": "dresses",
+    "images": [
+      "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1566479179817-c7a4d82e5c52?w=600&h=800&fit=crop"
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "colors": ["white", "blue", "red"],
+    "description": "Lightweight floral dress perfect for summer occasions. Features a flattering A-line silhouette and delicate floral print on breathable fabric.",
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "5",
+    "name": "Rainbow Hoodie",
+    "price": 45.99,
+    "category": "kids",
+    "subcategory": "hoodies",
+    "images": [
+      "https://images.unsplash.com/photo-1519340333755-56e9c1d4f786?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?w=600&h=800&fit=crop"
+    ],
+    "sizes": ["2T", "3T", "4T", "5T", "6T"],
+    "colors": ["rainbow", "blue", "pink"],
+    "description": "Soft and cozy hoodie with fun rainbow design. Made from organic cotton blend for comfort and durability during active play.",
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "6",
+    "name": "Slim Fit Chinos",
+    "price": 59.99,
+    "category": "men",
+    "subcategory": "pants",
+    "images": [
+      "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600&h=800&fit=crop"
+    ],
+    "sizes": ["28", "30", "32", "34", "36", "38"],
+    "colors": ["khaki", "navy", "black", "olive"],
+    "description": "Versatile slim-fit chinos made from stretch cotton twill. Perfect for both casual and business casual occasions with a modern tapered cut.",
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "7",
+    "name": "Cashmere Sweater",
+    "price": 149.99,
+    "category": "women",
+    "subcategory": "sweaters",
+    "images": [
+      "https://images.unsplash.com/photo-1544441892-794166f1e3be?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=800&fit=crop"
+    ],
+    "sizes": ["XS", "S", "M", "L"],
+    "colors": ["gray", "beige", "black", "white"],
+    "description": "Luxurious 100% cashmere sweater with a relaxed fit. Incredibly soft and warm, perfect for layering or wearing alone during cooler months.",
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "8",
+    "name": "Leather Sneakers",
+    "price": 129.99,
+    "category": "men",
+    "subcategory": "shoes",
+    "images": [
+      "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=600&h=800&fit=crop"
+    ],
+    "sizes": ["7", "8", "9", "10", "11", "12"],
+    "colors": ["white", "black", "brown"],
+    "description": "Premium leather sneakers with minimalist design. Features cushioned sole and breathable lining for all-day comfort and style.",
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "9",
+    "name": "Striped Long Sleeve",
+    "price": 39.99,
+    "category": "kids",
+    "subcategory": "shirts",
+    "images": [
+      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?w=600&h=800&fit=crop"
+    ],
+    "sizes": ["2T", "3T", "4T", "5T", "6T", "7T"],
+    "colors": ["blue", "red", "green"],
+    "description": "Classic striped long sleeve shirt made from soft cotton jersey. Comfortable fit with reinforced seams for active kids.",
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "10",
+    "name": "High-Waisted Jeans",
+    "price": 89.99,
+    "category": "women",
+    "subcategory": "jeans",
+    "images": [
+      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=600&h=800&fit=crop"
+    ],
+    "sizes": ["24", "26", "28", "30", "32"],
+    "colors": ["blue", "black", "white"],
+    "description": "High-waisted skinny jeans with stretch denim for comfort and fit. Features a flattering silhouette and classic five-pocket styling.",
+    "inStock": true,
+    "featured": true
+  }
+]

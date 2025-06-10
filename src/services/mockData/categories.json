@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "name": "Men",
+    "slug": "men",
+    "subcategories": ["t-shirts", "shirts", "pants", "jackets", "shoes", "accessories"]
+  },
+  {
+    "id": "2",
+    "name": "Women",
+    "slug": "women",
+    "subcategories": ["blouses", "dresses", "skirts", "pants", "jeans", "sweaters", "shoes", "accessories"]
+  },
+  {
+    "id": "3",
+    "name": "Kids",
+    "slug": "kids",
+    "subcategories": ["shirts", "pants", "dresses", "hoodies", "shoes", "accessories"]
+  },
+  {
+    "id": "4",
+    "name": "New Arrivals",
+    "slug": "new-arrivals",
+    "subcategories": ["latest", "trending", "featured"]
+  },
+  {
+    "id": "5",
+    "name": "Sale",
+    "slug": "sale",
+    "subcategories": ["clearance", "discounted", "outlet"]
+  }
+]
