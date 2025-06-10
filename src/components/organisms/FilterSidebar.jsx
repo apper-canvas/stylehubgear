@@ -8,7 +8,16 @@ import Input from '@/components/atoms/Input';
 import Label from '@/components/atoms/Label';
 import Paragraph from '@/components/atoms/Paragraph';
 
-const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
+const FilterSidebar = ({ filters = {}, onFiltersChange, products = [], onClose }) => {
+  // Provide default values for all filter properties
+  const safeFilters = {
+    categories: [],
+    sizes: [],
+    colors: [],
+    priceRange: [0, 500],
+    ...filters
+  };
+
   const [openSections, setOpenSections] = useState({
     categories: true,
     sizes: true,
@@ -23,55 +32,66 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
     }));
   };
 
-  const categories = [...new Set(products.map(p => p.category))].sort();
-  const sizes = [...new Set(products.flatMap(p => p.sizes || []))].sort();
-  const colors = [...new Set(products.flatMap(p => p.colors || []))].sort();
+  // Safe access to products array with null checks
+  const categories = products?.length > 0 
+    ? [...new Set(products.map(p => p?.category).filter(Boolean))].sort()
+    : [];
+  const sizes = products?.length > 0 
+    ? [...new Set(products.flatMap(p => p?.sizes || []))].sort()
+    : [];
+  const colors = products?.length > 0 
+    ? [...new Set(products.flatMap(p => p?.colors || []))].sort()
+    : [];
   
   const handleCategoryChange = (category) => {
-    const newCategories = filters.categories.includes(category)
-      ? filters.categories.filter(c => c !== category)
-      : [...filters.categories, category];
+    const currentCategories = safeFilters.categories || [];
+    const newCategories = currentCategories.includes(category)
+      ? currentCategories.filter(c => c !== category)
+      : [...currentCategories, category];
     
-    onFiltersChange({
-      ...filters,
+    onFiltersChange?.({
+      ...safeFilters,
       categories: newCategories
     });
   };
 
   const handleSizeChange = (size) => {
-    const newSizes = filters.sizes.includes(size)
-      ? filters.sizes.filter(s => s !== size)
-      : [...filters.sizes, size];
+    const currentSizes = safeFilters.sizes || [];
+    const newSizes = currentSizes.includes(size)
+      ? currentSizes.filter(s => s !== size)
+      : [...currentSizes, size];
     
-    onFiltersChange({
-      ...filters,
+    onFiltersChange?.({
+      ...safeFilters,
       sizes: newSizes
     });
   };
 
   const handleColorChange = (color) => {
-    const newColors = filters.colors.includes(color)
-      ? filters.colors.filter(c => c !== color)
-      : [...filters.colors, color];
+    const currentColors = safeFilters.colors || [];
+    const newColors = currentColors.includes(color)
+      ? currentColors.filter(c => c !== color)
+      : [...currentColors, color];
     
-    onFiltersChange({
-      ...filters,
+    onFiltersChange?.({
+      ...safeFilters,
       colors: newColors
     });
   };
 
   const handlePriceChange = (value, index) => {
-    const newPriceRange = [...filters.priceRange];
-    newPriceRange[index] = parseInt(value);
+    const currentPriceRange = safeFilters.priceRange || [0, 500];
+    const newPriceRange = [...currentPriceRange];
+    newPriceRange[index] = parseInt(value) || 0;
     
-    onFiltersChange({
-      ...filters,
+    onFiltersChange?.({
+      ...safeFilters,
       priceRange: newPriceRange
     });
   };
 
   const clearAllFilters = () => {
-    onFiltersChange({
+    onFiltersChange?.({
       categories: [],
       sizes: [],
       colors: [],
@@ -79,13 +99,13 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
     });
   };
 
+  // Safe check for active filters with fallbacks
   const hasActiveFilters = 
-    filters.categories.length > 0 || 
-    filters.sizes.length > 0 || 
-    filters.colors.length > 0 ||
-    filters.priceRange[0] > 0 ||
-    filters.priceRange[1] < 500;
-
+    (safeFilters.categories?.length || 0) > 0 || 
+    (safeFilters.sizes?.length || 0) > 0 || 
+    (safeFilters.colors?.length || 0) > 0 ||
+    (safeFilters.priceRange?.[0] || 0) > 0 ||
+    (safeFilters.priceRange?.[1] || 500) < 500;
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
       <div className="flex items-center justify-between mb-6">
@@ -133,11 +153,11 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="space-y-2 pt-2">
+<div className="space-y-2 pt-2">
               {categories.map(category => (
                 <Label key={category} className="flex items-center space-x-2 cursor-pointer">
                   <Checkbox
-                    checked={filters.categories.includes(category)}
+                    checked={safeFilters.categories?.includes(category) || false}
                     onChange={() => handleCategoryChange(category)}
                   />
                   <span className="text-sm capitalize">{category}</span>
@@ -171,13 +191,13 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="grid grid-cols-3 gap-2 pt-2">
+<div className="grid grid-cols-3 gap-2 pt-2">
               {sizes.map(size => (
                 <Button
                   key={size}
                   onClick={() => handleSizeChange(size)}
                   className={`px-3 py-2 text-sm border rounded transition-colors ${
-                    filters.sizes.includes(size)
+                    safeFilters.sizes?.includes(size)
                       ? 'border-accent bg-accent text-white'
                       : 'border-gray-300 hover:border-gray-400'
                   }`}
@@ -213,12 +233,12 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="space-y-2 pt-2">
+<div className="space-y-2 pt-2">
               {colors.map(color => (
                 <Label key={color} className="flex items-center space-x-3 cursor-pointer">
                   <div className="flex items-center">
                     <Checkbox
-                      checked={filters.colors.includes(color)}
+                      checked={safeFilters.colors?.includes(color) || false}
                       onChange={() => handleColorChange(color)}
                     />
                     <div
@@ -266,11 +286,11 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="space-y-4 pt-2">
+<div className="space-y-4 pt-2">
               <div className="flex items-center space-x-2">
                 <Input
                   type="number"
-                  value={filters.priceRange[0]}
+                  value={safeFilters.priceRange?.[0] || 0}
                   onChange={(e) => handlePriceChange(e.target.value, 0)}
                   placeholder="Min"
                   className="px-3 py-2 text-sm"
@@ -280,7 +300,7 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
                 <span className="text-gray-500">to</span>
                 <Input
                   type="number"
-                  value={filters.priceRange[1]}
+                  value={safeFilters.priceRange?.[1] || 500}
                   onChange={(e) => handlePriceChange(e.target.value, 1)}
                   placeholder="Max"
                   className="px-3 py-2 text-sm"
@@ -290,7 +310,7 @@ const FilterSidebar = ({ filters, onFiltersChange, products, onClose }) => {
               </div>
               
               <Paragraph className="text-center text-sm text-gray-500">
-                ${filters.priceRange[0]} - ${filters.priceRange[1]}
+                ${safeFilters.priceRange?.[0] || 0} - ${safeFilters.priceRange?.[1] || 500}
               </Paragraph>
             </div>
           </motion.div>
